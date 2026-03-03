@@ -57,11 +57,21 @@ npm run dev
 
 The frontend runs at http://localhost:5173.
 
-### 4. Run Tests
+### 4. Demo Login Credentials
+
+Use these seeded accounts to log in and accept tasks:
+
+| Username | Password  | Balance |
+|----------|-----------|---------|
+| alice    | password123 | 5 open tasks |
+| bob      | password123 | 1 open task |
+| charlie  | password123 | 3 open tasks |
+
+### 5. Run Tests
 
 ```bash
 cd backend
-DATABASE_URL=postgres://postgres:postgres@localhost:5432/task_platform_test npm run test
+DATABASE_URL=postgres://postgres:postgres@localhost:5433/task_platform_test npm run test
 ```
 
 Ensure PostgreSQL is running and the test database exists.
@@ -88,12 +98,6 @@ Ensure PostgreSQL is running and the test database exists.
 ### Task Chat
 - `GET /tasks/:id/messages` - List messages
 - `POST /tasks/:id/messages` - Post message
-
-## Demo Seed Data
-
-- **alice** / password123 - 10000 cents, 1 open task
-- **bob** / password123 - 5000 cents
-- **charlie** / password123 - 2500 cents
 
 ## Demo Walkthrough
 

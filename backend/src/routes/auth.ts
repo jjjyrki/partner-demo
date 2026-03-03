@@ -45,7 +45,7 @@ router.post('/register', async (req: Request, res: Response) => {
 
     await db.Wallet.create({
       user_id: user.id,
-      available_balance: 0,
+      available_balance: 1000, // $10 signup bonus (amounts in cents)
       locked_balance: 0,
       status: 'active',
     });

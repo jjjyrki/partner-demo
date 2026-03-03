@@ -116,6 +116,11 @@ export default function LoginPage() {
             ← Back to tasks
           </Link>
         </p>
+        {mode === 'login' && (
+          <p className="mt-4 pt-4 border-t border-slate-700 text-center text-xs text-slate-500">
+            Demo: alice / bob / charlie — password: password123
+          </p>
+        )}
       </div>
     </div>
   );
