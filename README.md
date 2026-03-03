@@ -4,7 +4,7 @@ A demo task platform where users create tasks and other users complete them for 
 
 ## Tech Stack
 
-- **Frontend**: Vite + React + TypeScript (planned)
+- **Frontend**: Vite + React + TypeScript + Tailwind + React Query
 - **Backend**: Node + Express + TypeScript
 - **Database**: PostgreSQL
 - **ORM**: Sequelize
@@ -46,7 +46,18 @@ npm run dev
 
 The API runs at http://localhost:3000.
 
-### 3. Run Tests
+### 3. Frontend Setup
+
+```bash
+cd frontend
+cp .env.example .env   # optional: edit VITE_API_URL if backend is elsewhere
+npm install
+npm run dev
+```
+
+The frontend runs at http://localhost:5173.
+
+### 4. Run Tests
 
 ```bash
 cd backend
