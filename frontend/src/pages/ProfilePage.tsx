@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '../context/AuthContext';
-import { patchMe } from '../api/client';
+import { patchMe, getVirtualCard } from '../api/client';
+import VirtualCard from '../components/VirtualCard';
 
 export default function ProfilePage() {
   const { user, refreshUser } = useAuth();
@@ -16,6 +17,12 @@ export default function ProfilePage() {
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
 
+  const virtualCardQuery = useQuery({
+    queryKey: ['virtual-card'],
+    queryFn: getVirtualCard,
+    enabled: !!user,
+  });
+
   const patchMutation = useMutation({
     mutationFn: patchMe,
     onSuccess: async () => {
@@ -24,6 +31,7 @@ export default function ProfilePage() {
       setPassword('');
       setConfirmPassword('');
       queryClient.invalidateQueries({ queryKey: ['me'] });
+      queryClient.invalidateQueries({ queryKey: ['virtual-card'] });
       setTimeout(() => setSuccess(''), 3000);
     },
     onError: (err) => {
@@ -93,6 +101,19 @@ export default function ProfilePage() {
               </span>
             </p>
           </div>
+        )}
+      </div>
+
+      <div className="mb-8 p-4 rounded-xl bg-slate-900/60 border border-slate-700/50">
+        <h2 className="text-sm font-medium text-slate-400 mb-3">Virtual card</h2>
+        {virtualCardQuery.isLoading && (
+          <p className="text-slate-400 text-sm">Loading card...</p>
+        )}
+        {virtualCardQuery.isError && (
+          <p className="text-red-400 text-sm">Failed to load card</p>
+        )}
+        {virtualCardQuery.data && (
+          <VirtualCard card={virtualCardQuery.data} />
         )}
       </div>
 

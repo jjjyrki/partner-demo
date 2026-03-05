@@ -117,6 +117,20 @@ describe("Task Platform API", () => {
       expect(res.status).toBe(200);
     });
 
+    it("returns virtual card via GET /users/me/virtual-card", async () => {
+      const res = await request(app)
+        .get("/users/me/virtual-card")
+        .set("Authorization", `Bearer ${token}`);
+      expect(res.status).toBe(200);
+      expect(res.body.lastFour).toBe("4242");
+      expect(res.body.brand).toBe("Visa");
+      expect(res.body.holderName).toBe("testuser");
+      expect(res.body.expiryMonth).toBe(12);
+      expect(res.body.expiryYear).toBe(28);
+      expect(res.body.maskedCvv).toBe("•••");
+      expect(res.body.cvvRevealed).toBe("123");
+    });
+
     it("can login with new password", async () => {
       await request(app)
         .patch("/users/me")

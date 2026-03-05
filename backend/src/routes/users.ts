@@ -3,6 +3,7 @@ import argon2 from 'argon2';
 import { z } from 'zod';
 import { randomBytes } from 'crypto';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
+import { getMockVirtualCard } from '../data/mockVirtualCard';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const db = require('../db/models');
 
@@ -11,6 +12,11 @@ const router = Router();
 const patchMeSchema = z.object({
   username: z.string().min(1).max(255).optional(),
   password: z.string().min(6).optional(),
+});
+
+router.get('/me/virtual-card', authMiddleware, (req: AuthRequest, res: Response) => {
+  const card = getMockVirtualCard(req.user?.username);
+  res.json(card);
 });
 
 router.patch('/me', authMiddleware, async (req: AuthRequest, res: Response) => {

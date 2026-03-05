@@ -44,3 +44,5 @@ frontend/dist/
 .cache/
 
 .cursor/
+
+plans/

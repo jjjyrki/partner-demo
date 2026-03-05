@@ -70,6 +70,20 @@ export function getMe() {
 }
 
 // Users
+export interface VirtualCard {
+  lastFour: string;
+  brand: string;
+  holderName: string;
+  expiryMonth: number;
+  expiryYear: number;
+  maskedCvv: string;
+  cvvRevealed: string;
+}
+
+export function getVirtualCard() {
+  return api<VirtualCard>('/users/me/virtual-card');
+}
+
 export function patchMe(data: { username?: string; password?: string }) {
   return api<AuthUser>('/users/me', {
     method: 'PATCH',
