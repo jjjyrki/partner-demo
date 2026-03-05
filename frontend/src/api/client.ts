@@ -91,6 +91,18 @@ export function patchMe(data: { username?: string; password?: string }) {
   });
 }
 
+export interface Transaction {
+  id: number;
+  amount_cents: number;
+  description: string;
+  created_at: string;
+  type: string;
+}
+
+export function getTransactions() {
+  return api<Transaction[]>('/users/me/transactions');
+}
+
 // Tasks
 export interface TaskStep {
   id: number;

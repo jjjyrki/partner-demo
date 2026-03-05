@@ -26,6 +26,12 @@ export default function Layout() {
             </Link>
             {user && (
               <>
+                <Link
+                  to="/transactions"
+                  className="text-slate-300 hover:text-slate-100 transition-colors"
+                >
+                  Transactions
+                </Link>
                 <div className="flex items-center gap-3 text-sm">
                   <span className="text-slate-400">
                     <span className="text-amber-400 font-medium">

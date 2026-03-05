@@ -19,6 +19,10 @@ router.get('/me/virtual-card', authMiddleware, (req: AuthRequest, res: Response)
   res.json(card);
 });
 
+router.get('/me/transactions', authMiddleware, (_req: AuthRequest, res: Response) => {
+  res.json([]);
+});
+
 router.patch('/me', authMiddleware, async (req: AuthRequest, res: Response) => {
   try {
     const parsed = patchMeSchema.safeParse(req.body);
