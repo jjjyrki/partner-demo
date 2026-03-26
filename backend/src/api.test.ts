@@ -87,6 +87,7 @@ describe("Task Platform API", () => {
         .set("Authorization", `Bearer ${token}`);
       expect(res.status).toBe(200);
       expect(res.body.username).toBe("testuser");
+      expect(res.body.partner_user_id).toBeNull();
       expect(res.body.wallet).toBeDefined();
       expect(res.body.wallet.available_balance).toBe(1000); // $10 signup bonus
       expect(res.body.wallet.locked_balance).toBe(0);
@@ -141,6 +142,30 @@ describe("Task Platform API", () => {
         .post("/auth/login")
         .send({ username: "testuser", password: "newpassword123" });
       expect(res.status).toBe(200);
+    });
+
+    it("creates and links partner user via POST /users/me/create-partner-user", async () => {
+      const createRes = await request(app)
+        .post("/users/me/create-partner-user")
+        .set("Authorization", `Bearer ${token}`)
+        .send({
+          firstName: "Test",
+          lastName: "User",
+          dob: "1990-01-01",
+          country: "ZM",
+          phoneNumber: "+260970000001",
+          email: "test.user@example.com",
+        });
+      expect(createRes.status).toBe(201);
+      expect(typeof createRes.body.partner_user_id).toBe("string");
+      expect(createRes.body.partner_user.workflowRunId).toBeDefined();
+      expect(createRes.body.partner_user.kycUrl).toBeDefined();
+
+      const meRes = await request(app)
+        .get("/auth/me")
+        .set("Authorization", `Bearer ${token}`);
+      expect(meRes.status).toBe(200);
+      expect(meRes.body.partner_user_id).toBe(createRes.body.partner_user_id);
     });
   });
 

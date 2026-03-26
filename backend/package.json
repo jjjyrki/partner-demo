@@ -11,8 +11,8 @@
     "db:migrate:undo": "sequelize-cli db:migrate:undo",
     "db:seed": "sequelize-cli db:seed:all",
     "db:seed:undo": "sequelize-cli db:seed:undo",
-    "test": "jest --runInBand --forceExit",
-    "test:watch": "jest --runInBand --forceExit --watch"
+    "test": "NODE_ENV=test jest --runInBand --forceExit",
+    "test:watch": "NODE_ENV=test jest --runInBand --forceExit --watch"
   },
   "dependencies": {
     "argon2": "^0.31.2",

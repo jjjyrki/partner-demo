@@ -61,17 +61,17 @@ The frontend runs at http://localhost:5173.
 
 Use these seeded accounts to log in and accept tasks:
 
-| Username | Password  | Balance |
-|----------|-----------|---------|
+| Username | Password    | Balance      |
+| -------- | ----------- | ------------ |
 | alice    | password123 | 5 open tasks |
-| bob      | password123 | 1 open task |
+| bob      | password123 | 1 open task  |
 | charlie  | password123 | 3 open tasks |
 
 ### 5. Run Tests
 
 ```bash
 cd backend
-DATABASE_URL=postgres://postgres:postgres@localhost:5433/task_platform_test npm run test
+TEST_DATABASE_URL=postgres://postgres:postgres@localhost:5433/task_platform_test npm run test
 ```
 
 Ensure PostgreSQL is running and the test database exists.
@@ -79,14 +79,17 @@ Ensure PostgreSQL is running and the test database exists.
 ## API Endpoints
 
 ### Auth
+
 - `POST /auth/register` - Register (username, password)
 - `POST /auth/login` - Login
 - `GET /auth/me` - Current user + wallet (requires Bearer token)
 
 ### Users
+
 - `PATCH /users/me` - Update username/password (requires Bearer token)
 
 ### Tasks
+
 - `POST /tasks` - Create task (locks reward from wallet)
 - `GET /tasks` - List tasks (?status=open|in_review|completed|cancelled)
 - `GET /tasks/:id` - Task details
@@ -96,6 +99,7 @@ Ensure PostgreSQL is running and the test database exists.
 - `POST /tasks/:id/approve` - Approve and payout
 
 ### Task Chat
+
 - `GET /tasks/:id/messages` - List messages
 - `POST /tasks/:id/messages` - Post message
 
